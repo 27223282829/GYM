@@ -7,5 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class tipo_pago extends Model
 {
-    use HasFactory;
+    // use HasFactory;
+    protected $table='tipo_pago';
 }
