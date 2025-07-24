@@ -2,9 +2,9 @@
 
 
     <div class="container py-4">
-        <h2>Registrar Cliente</h2>
+        <h2>Registrar Trabajador</h2>
 
-        <form action="{{ url('cliente') }}" method="post">
+        <form action="{{ url('trabajador') }}" method="post">
             @csrf
 
              <div class="md-3 row">
@@ -26,16 +26,16 @@
                   </div>
               </div>
                <div class="md-3 row">
-                <label for="id_trabajador" class="col-sm-2 col-form-label">Trabajador:</label>
+                <label for="id_rol" class="col-sm-2 col-form-label">Roles:</label>
                 <div class="col-sm-5">
-                    <select name="id_trabajador" id="id_trabajador" class="form-control" required>
-                       <option value="">Seleccionar Trabajador</option>
-                       @foreach ($trabajador  as $trabajadores )
-                       <option value="{{$trabajadores->id }}">{{$trabajadores->Nombre}}</option>"
+                    <select name="id_rol" id="id_rol" class="form-control" required>
+                       <option value="">Seleccionar rol</option>
+                       @foreach ($rol  as $roles )
+                       <option value="{{$roles->id }}">{{$roles->Rol}}</option>"
                        @endforeach
                     </select>
                 </div>
-              <a href="{{ url('cliente') }}"  class="btn btn-secondary">Regresar</a>
+              <a href="{{ url('trabajador') }}"  class="btn btn-secondary">Regresar</a>
               <button type="sumit" class="btn btn-success">Guardar</button>
     </div>
     </form>

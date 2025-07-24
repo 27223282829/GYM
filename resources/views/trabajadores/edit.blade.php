@@ -3,14 +3,14 @@
     <div class="container py-4">
         <h2>Editar Trabajador</h2>
 
-        <form action="{{ url('cliente/'.$cliente->id) }}" method="post">
+        <form action="{{ url('trabajador/'.$trabajador->id) }}" method="post">
             @method("PUT")
             @csrf
 
                <div class="md-3 row">
                   <label for="nombre" class="col-sm-2 col-form-label">Nombre:</label>
                   <div class="col-sm-5">
-                       <input type="text" class="form-control"  name="Nombre"  id="Nombre" value="{{$cliente->Nombre}}" required>
+                       <input type="text" class="form-control"  name="Nombre"  id="Nombre" value="{{$trabajador->Nombre}}" required>
                     </div>
                 </div>
 
@@ -18,31 +18,31 @@
                 <div class="md-3 row">
                     <label for="apellido" class="col-sm-2 col-form-label">Apellido:</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control"  name="Apellido"  id="Apellido" value="{{ $cliente->Apellido }}" required>
+                        <input type="text" class="form-control"  name="Apellido"  id="Apellido" value="{{ $trabajador->Apellido }}" required>
                     </div>
                 </div>
                 <div class="md-3 row">
                     <label for="telefono" class="col-sm-2 col-form-label">Apellido:</label>
                     <div class="col-sm-5">
-                        <input type="number" class="form-control"  name="Telefono"  id="Telefono" value="{{ $cliente->Telefono }}" required>
+                        <input type="number" class="form-control"  name="Telefono"  id="Telefono" value="{{ $trabajador->Telefono }}" required>
                     </div>
                 </div>
                 <div class="md-3 row">
                     <label for="apellido" class="col-sm-2 col-form-label">Apellido:</label>
                     <div class="col-sm-5">
-                        <input type="email" class="form-control"  name="Correo"  id="Correo" value="{{ $cliente->Correo }}" required>
+                        <input type="email" class="form-control"  name="Correo"  id="Correo" value="{{ $trabajador->Correo }}" required>
                     </div>
                 </div>
 
 
                 <div class="md-3 row">
-                    <label for="id_trabjador" class="col-sm-2 col-form-label">Trabajador:</label>
+                    <label for="id_rol" class="col-sm-2 col-form-label">Programa:</label>
                     <div class="col-sm-5">
-                        <select name="id_trabajador" id="id_trabajador" class="form-control" required>
-                            <option value="">Seleccionar Trabajador</option>
-                                @foreach ($trabajador as $trabajadores )
-                                    <option value="{{$trabajadores->id}}"  @if ($trabajadores->id == $cliente->id_rol) {{ 'selected' }}@endif>
-                                        "{{$trabajadores->Nombre }}"
+                        <select name="id_rol" id="id_rol" class="form-control" required>
+                            <option value="">Seleccionar rol</option>
+                                @foreach ($rol as $roles )
+                                    <option value="{{$roles->id}}"  @if ($roles->id == $trabajador->id_rol) {{ 'selected' }}@endif>
+                                        "{{$roles->Rol }}"
                                     </option>"
                                 @endforeach
                         </select>

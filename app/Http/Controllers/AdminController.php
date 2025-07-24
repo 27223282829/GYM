@@ -34,8 +34,24 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         //
-    }
+        $request->validate([
+            'Nombre'=>'required|max:225',
+            'Apellido'=>'required|max:225',
+            'Telefono'=>'required|max:225',
+            'Correo'=>'required|max:225',
 
+        ]);
+        
+        $admin= new Admin();
+        $admin->Nombre=$request->input('Nombre');
+        $admin->Apellido=$request->input('Apellido');
+        $admin->Telefono=$request->input('Telefono');
+        $admin->Correo=$request->input('Correo');
+        $admin->save();
+
+        return view("admin.message", ['msg'=>'Registrado exitosamente']);
+    }
+    
     /**
      * Display the specified resource.
      */
@@ -50,6 +66,8 @@ class AdminController extends Controller
     public function edit(string $id)
     {
         //
+        $admin=Admin::find($id);
+        return view('admin.edit', ['admin'=>$admin ]);
     }
 
     /**
@@ -58,6 +76,22 @@ class AdminController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $request->validate([
+            'Nombre'=>'required|max:225',
+            'Apellido'=>'required|max:225',
+            'Telefono'=>'required|max:225',
+            'Correo'=>'required|max:225',
+
+        ]);
+
+        $admin= Admin::find($id);
+        $admin->Nombre=$request->input("Nombre");
+        $admin->Apellido=$request->input("Apellido");
+        $admin->Telefono=$request->input("Telefono");
+        $admin->Correo=$request->input("Correo");
+        $admin->save();
+
+        return view("admin.message", ['msg'=>'Registrado exitosamente su cambio']);
     }
 
     /**
@@ -66,5 +100,7 @@ class AdminController extends Controller
     public function destroy(string $id)
     {
         //
+        Admin::destroy($id);
+        return redirect('admin');
     }
 }

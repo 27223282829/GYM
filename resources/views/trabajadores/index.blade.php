@@ -1,11 +1,11 @@
-{{-- @extends('layouts.panel')
+{{-- @extends('layouts.panel') --}}
 
-@section('content') --}}
+{{-- @section('content') --}}
 
 <main>
      <div class="container py-4">
-       <h2>Listado de Admin </h2>
-       <a href="{{url('admin/create')}}" class="btn btn-primary btn-sm">Nuevo registro</a>
+       <h2>Listado de trabajadores </h2>
+       <a href="{{url('trabajador/create')}}" class="btn btn-primary btn-sm">Nuevo registro</a>
        <table class="table table-light">
         <thead class="thead-light">
             <tr>
@@ -14,20 +14,22 @@
                 <th>Apellido</th>
                 <th>Telefono</th>
                 <th>Correo</th>
+                <th>Rol</th>
                 <th>Accion</th>
                 <th>Accion</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($admin as $admins)
+            @foreach ($trabajador as $trabajadores)
             <tr>
-                <td>{{ $admins->id}}</td>
-                <td>{{ $admins->Nombre}}</td>
-                <td>{{ $admins->Apellido}}</td>
-                <td>{{ $admins->Telefono}}</td>
-                <td>{{ $admins->Correo}}</td>
-                <td><a href="{{url('admin/'.$admins->id.'/edit')}}" class="btn btn-warning btn-sn">Editar</a></td>
-                <td><form action="{{ url('admin/'.$admins->id)}}" method="post">
+                <td>{{ $trabajadores->id}}</td>
+                <td>{{ $trabajadores->Nombre}}</td>
+                <td>{{ $trabajadores->Apellido}}</td>
+                <td>{{ $trabajadores->Telefono}}</td>
+                <td>{{ $trabajadores->Correo}}</td>
+                <td>{{ $trabajadores->rol->Rol}}</td>
+                <td><a href="{{url('trabajador/'.$trabajadores->id.'/edit')}}" class="btn btn-warning btn-sn">Editar</a></td>
+                <td><form action="{{ url('trabajador/'.$trabajadores->id)}}" method="post">
                     {{ method_field("DELETE") }}
                     @csrf
                     <button type="submit" onclick="return confirm('¿Esta usted seguro de querer borrar estos datos?')"

@@ -2,10 +2,92 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers;
+use App\Models\Rol;
 use Illuminate\Http\Request;
+
 
 class RolController extends Controller
 {
-    //
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        //
+        $rol= Rol::all();
+        return view('roles.index', ['rol'=>$rol]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+        return view('roles.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        //
+        $request->validate([
+            'Rol'=>'required|max:225',
+        ]);
+
+        $rol= new Rol();
+        $rol->Rol=$request->input('Rol');
+        $rol->save();
+
+        return view("roles.message", ['mg'=>'Registrado perfectamente']);
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+        $rol=Rol::find($id);
+        return view('roles.edit', ['rol'=>$rol]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+         $request->validate([
+            'Rol'=>'required|max:225',
+        ]);
+
+        $rol= Rol::find($id);
+        $rol->Rol=$request->input('Rol');
+        $rol->save();
+
+        return view("roles.message", ['mg'=>'Registrado perfectamente su cambio']);
+
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
+        Rol::destroy($id);
+        return redirect('rol');
+    }
 }
