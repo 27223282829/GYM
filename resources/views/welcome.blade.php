@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GYMFIT - Tu App de Entrenamiento</title>
     <link rel="stylesheet" href="{{ asset('styles/registro.css') }}" />
->>>>>>> 0b7dea6 (Se realiza la vista principal se puede mejorar revisen)
+
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
