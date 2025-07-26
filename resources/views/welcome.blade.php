@@ -12,8 +12,8 @@
     <header>
         <div class="logo">GYMFIT</div>
         <nav>
-         <a href="{{ route('login') }}">Iniciar sesión</a>
-         <a href="{{ route('register') }}">Registrarse</a>
+            <a href="{{ route('login') }}">Iniciar sesión</a>
+            <a href="{{ route('register') }}">Registrarse</a>
 
         </nav>
     </header>
@@ -56,4 +56,3 @@
 </html>
 <!DOCTYPE html>
 <html lang="es">
-

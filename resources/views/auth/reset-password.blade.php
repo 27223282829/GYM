@@ -1,39 +1,59 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('password.store') }}">
-        @csrf
+<!DOCTYPE html>
+<html lang="es">
 
-        <!-- Password Reset Token -->
-        <input type="hidden" name="token" value="{{ $request->route('token') }}">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Restablecer Contraseña</title>
+    <link rel="stylesheet" href="{{ asset('styles/auth.css') }}">
+</head>
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $request->email)" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+<body>
+    <div class="container">
+        <div class="login-box">
+            <img src="{{ asset('fotosgym/logo2.jpg') }}" alt="Gold's Gym Logo" class="logo" />
+            <h2>Restablecer Contraseña</h2>
+
+            @if (session('status'))
+                <div class="alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
+
+            <form method="POST" action="{{ route('password.store') }}">
+                @csrf
+
+                <!-- Token oculto -->
+                <input type="hidden" name="token" value="{{ $request->route('token') }}">
+
+                <!-- Email -->
+                <input type="email" placeholder="Correo electrónico" name="email"
+                    value="{{ old('email', $request->email) }}" required />
+                @error('email')
+                    <div class="error">{{ $message }}</div>
+                @enderror
+
+                <!-- Nueva contraseña -->
+                <input type="password" placeholder="Nueva contraseña" name="password" required />
+                @error('password')
+                    <div class="error">{{ $message }}</div>
+                @enderror
+
+                <!-- Confirmar contraseña -->
+                <input type="password" placeholder="Confirmar nueva contraseña" name="password_confirmation" required />
+                @error('password_confirmation')
+                    <div class="error">{{ $message }}</div>
+                @enderror
+
+                <!-- Botón -->
+                <button type="submit">Restablecer Contraseña</button>
+
+                <p class="register">
+                    ¿Ya tienes cuenta? <a href="{{ route('login') }}">Inicia sesión</a>
+                </p>
+            </form>
         </div>
+    </div>
+</body>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                                type="password"
-                                name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Reset Password') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+</html>
