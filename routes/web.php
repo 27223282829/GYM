@@ -1,17 +1,20 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\ClienteController;
-use App\Http\Controllers\RolController;
-use App\Http\Controllers\TrabajadorController;
- 
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('/admin', AdminController::class);
-Route::resource('/rol', RolController::class);
-Route::resource('/trabajador', TrabajadorController::class);
-Route::resource('/cliente', ClienteController::class);
-// Route::resource('/admin', AdminController::class);
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';
