@@ -11,6 +11,6 @@ class trabajador extends Model
     use HasFactory;
 
     public function rol(): BelongsTo {
-        return $this->belongsTo(Rol::class, 'id_rol', 'id');
+        return $this->belongsTo(Rol::class, 'id_roles', 'id');
     }
 }

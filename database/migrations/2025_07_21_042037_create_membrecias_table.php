@@ -13,13 +13,18 @@ return new class extends Migration
     {
         Schema::create('membrecias', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_cliente');
+            $table->unsignedBigInteger('id_clientes'); // FK hacia clientes
             $table->string('tipo');
             $table->date('fecha_ini');
             $table->date('fecha_fin');
             $table->string('estado');
-            $table->foreign('id_cliente')->references('id')->on('clientes')->onDelete('cascade');
-            $table->timestamps();
+
+
+            $table->foreign('id_clientes')
+            ->references('id')->on('clientes')
+            ->onDelete('cascade');
+
+            $table->timestamps(); // created_at y updated_at
         });
     }
 
