@@ -69,7 +69,7 @@ class RolController extends Controller
     public function update(Request $request, string $id)
     {
         //
-         $request->validate([
+        $request->validate([
             'Rol'=>'required|max:225',
         ]);
 
@@ -88,6 +88,6 @@ class RolController extends Controller
     {
         //
         Rol::destroy($id);
-        return redirect('rol');
+        return redirect('roles')->with('message', 'Eliminado correctamente');
     }
 }

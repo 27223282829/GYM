@@ -8,9 +8,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class trabajador extends Model
 {
+
+    protected $table = 'trabajadores';
+
     use HasFactory;
 
-    public function rol(): BelongsTo {
+    public function rol(): BelongsTo
+    {
         return $this->belongsTo(Rol::class, 'id_roles', 'id');
     }
 }

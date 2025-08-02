@@ -14,7 +14,7 @@ class TrabajadorController extends Controller
     {
         //
         $trabajador=Trabajador::all();
-        return view('trabajadores.index', ['trabajador'=>$trabajador]);
+        return view('trabajador.index', ['trabajador'=>$trabajador]);
     }
 
     /**
@@ -23,7 +23,7 @@ class TrabajadorController extends Controller
     public function create()
     {
         //
-        return view('trabajadores.create', ['rol'=>Rol::all()]);
+        return view('trabajador.create', ['rol'=>Rol::all()]);
     }
 
     /**
@@ -49,7 +49,7 @@ class TrabajadorController extends Controller
 
         $trabajador->save();
 
-        return view("trabajadores.message", ['msg'=>"Guardado de forma correcta"]);
+        return view("trabajador.message", ['mg'=>"Guardado de forma correcta"]);
     }
 
     /**
@@ -67,7 +67,7 @@ class TrabajadorController extends Controller
     {
         //
         $trabajador=Trabajador::find($id);
-        return view('trabajadores.edit', ['trabajador'=>$trabajador, 'rol'=>Rol::all()]);
+        return view('trabajador.edit', ['trabajador'=>$trabajador, 'rol'=>Rol::all()]);
     }
 
     /**
@@ -93,7 +93,7 @@ class TrabajadorController extends Controller
 
         $trabajador->save();
 
-        return view("trabajadores.message", ['msg'=>"Guardado de forma correcta la nueva informacion"]);
+        return view("trabajador.message", ['mg'=>"Guardado de forma correcta la nueva informacion"]);
     }
 
     /**
