@@ -37,7 +37,7 @@ class TrabajadorController extends Controller
             'Apellido'=>'required|max:30',
             'Telefono'=>'required|max:30',
             'Correo'=>'required|max:30',
-            'id_rol'=>'required',
+            'id_roles'=>'required',
         ]);
 
         $trabajador=new Trabajador();
@@ -45,7 +45,7 @@ class TrabajadorController extends Controller
         $trabajador->Apellido=$request->input('Apellido');
         $trabajador->Telefono=$request->input('Telefono');
         $trabajador->Correo=$request->input('Correo');
-        $trabajador->id_rol=$request->input('id_rol');
+        $trabajador->id_rol=$request->input('id_roles');
 
         $trabajador->save();
 
@@ -81,7 +81,7 @@ class TrabajadorController extends Controller
             'Apellido'=>'required|max:30',
             'Telefono'=>'required|max:30',
             'Correo'=>'required|max:30',
-            'id_rol'=>'required',
+            'id_roles'=>'required',
         ]);
 
         $trabajador=Trabajador::find($id);
@@ -89,7 +89,7 @@ class TrabajadorController extends Controller
         $trabajador->Apellido=$request->input('Apellido');
         $trabajador->Telefono=$request->input('Telefono');
         $trabajador->Correo=$request->input('Correo');
-        $trabajador->id_rol=$request->input('id_rol');
+        $trabajador->id_rol=$request->input('id_roles');
 
         $trabajador->save();
 

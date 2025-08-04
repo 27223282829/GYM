@@ -1,6 +1,6 @@
-{{-- @extends('layouts.panel') --}}
+{{-- @extends('layouts.panel')
 
-{{-- @section('content') --}}
+@section('content') --}}
 
 <main>
     <div class="container py-4">
