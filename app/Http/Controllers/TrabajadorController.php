@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Trabajador;
-use App\Models\Rol;
+use App\Models\Roles;
 class TrabajadorController extends Controller
 {
     /**
@@ -23,7 +23,7 @@ class TrabajadorController extends Controller
     public function create()
     {
         //
-        return view('trabajador.create', ['rol'=>Rol::all()]);
+        return view('trabajador.create', ['rol'=>Roles::all()]);
     }
 
     /**
@@ -33,19 +33,19 @@ class TrabajadorController extends Controller
     {
         //
         $request->validate([
-            'Nombre'=>'required|max:30',
-            'Apellido'=>'required|max:30',
-            'Telefono'=>'required|max:30',
-            'Correo'=>'required|max:30',
-            'id_roles'=>'required',
+            'nombre'=>'required|max:30',
+            'apellido'=>'required|max:30',
+            'telefono'=>'required|max:30',
+            'correo'=>'required|max:30',
+            'id_rol'=> 'required',
         ]);
 
         $trabajador=new Trabajador();
-        $trabajador->Nombre=$request->input('Nombre');
-        $trabajador->Apellido=$request->input('Apellido');
-        $trabajador->Telefono=$request->input('Telefono');
-        $trabajador->Correo=$request->input('Correo');
-        $trabajador->id_rol=$request->input('id_roles');
+        $trabajador->Nombre=$request->input('nombre');
+        $trabajador->Apellido=$request->input('apellido');
+        $trabajador->Telefono=$request->input('telefono');
+        $trabajador->Correo=$request->input('correo');
+        $trabajador->id_rol = $request->input('id_rol');
 
         $trabajador->save();
 
@@ -67,7 +67,7 @@ class TrabajadorController extends Controller
     {
         //
         $trabajador=Trabajador::find($id);
-        return view('trabajador.edit', ['trabajador'=>$trabajador, 'rol'=>Rol::all()]);
+        return view('trabajador.edit', ['trabajador'=>$trabajador, 'roles'=>Roles::all()]);
     }
 
     /**
@@ -77,19 +77,19 @@ class TrabajadorController extends Controller
     {
         //
         $request->validate([
-            'Nombre'=>'required|max:30',
-            'Apellido'=>'required|max:30',
-            'Telefono'=>'required|max:30',
-            'Correo'=>'required|max:30',
-            'id_roles'=>'required',
+            'nombre'=>'required|max:30',
+            'apellido'=>'required|max:30',
+            'telefono'=>'required|max:30',
+            'correo'=>'required|max:30',
+            'id_rol'=>'required',
         ]);
 
         $trabajador=Trabajador::find($id);
-        $trabajador->Nombre=$request->input('Nombre');
-        $trabajador->Apellido=$request->input('Apellido');
-        $trabajador->Telefono=$request->input('Telefono');
-        $trabajador->Correo=$request->input('Correo');
-        $trabajador->id_rol=$request->input('id_roles');
+        $trabajador->Nombre=$request->input('nombre');
+        $trabajador->Apellido=$request->input('apellido');
+        $trabajador->Telefono=$request->input('telefono');
+        $trabajador->Correo=$request->input('correo');
+        $trabajador->id_rol=$request->input('id_rol');
 
         $trabajador->save();
 

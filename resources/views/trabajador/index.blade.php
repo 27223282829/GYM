@@ -23,10 +23,10 @@
                 @foreach ($trabajador as $trabajadores)
                     <tr>
                         <td>{{ $trabajadores->id }}</td>
-                        <td>{{ $trabajadores->Nombre }}</td>
-                        <td>{{ $trabajadores->Apellido }}</td>
-                        <td>{{ $trabajadores->Telefono }}</td>
-                        <td>{{ $trabajadores->Correo }}</td>
+                        <td>{{ $trabajadores->nombre }}</td>
+                        <td>{{ $trabajadores->apellido }}</td>
+                        <td>{{ $trabajadores->telefono }}</td>
+                        <td>{{ $trabajadores->correo }}</td>
                         <td>{{ $trabajadores->rol->Rol }}</td>
                         <td><a href="{{ url('trabajador/' . $trabajadores->id . '/edit') }}"
                                 class="btn btn-warning btn-sn">Editar</a></td>

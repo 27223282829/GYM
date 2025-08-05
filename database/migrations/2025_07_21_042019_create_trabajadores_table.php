@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('apellido');
             $table->string('telefono');
             $table->string('correo');
-            $table->unsignedBigInteger('id_roles');
-            $table->foreign('id_roles')->references('id')->on('roles')->onDelete('cascade');
+            $table->unsignedBigInteger('id_rol'); // CAMBIO AQUI
+            $table->foreign('id_rol')->references('id')->on('roles')->onDelete('cascade'); // CAMBIO AQUI
             $table->timestamps();
         });
     }

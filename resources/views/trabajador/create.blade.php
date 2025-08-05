@@ -5,39 +5,40 @@
         @csrf
 
         <div class="md-3 row">
-            <label for="Nombre" class="col-sm-2 col-form-label">Nombre:</label>
+            <label for="nombre" class="col-sm-2 col-form-label">Nombre:</label>
             <div class="col-sm-5">
-                <input type="text" class="form-control" name="Nombre" id="Nombre" value="{{ old('Nombre') }}"
-                    required>
+                <input type="text" class="form-control" name="nombre" id="nombre" value="{{ old('nombre') }}" required>
             </div>
-            <label for="Apellido" class="col-sm-2 col-form-label">Apellido:</label>
+
+            <label for="apellido" class="col-sm-2 col-form-label">Apellido:</label>
             <div class="col-sm-5">
-                <input type="text" class="form-control" name="Apellido" id="Apellido" value="{{ old('Apellido') }}"
-                    required>
+                <input type="text" class="form-control" name="apellido" id="apellido" value="{{ old('apellido') }}" required>
             </div>
-            <label for="Telefono" class="col-sm-2 col-form-label">Telefono:</label>
+
+            <label for="telefono" class="col-sm-2 col-form-label">Telefono:</label>
             <div class="col-sm-5">
-                <input type="number" class="form-control" name="Telefono" id="Telefono" value="{{ old('Telefono') }}"
-                    required>
+                <input type="number" class="form-control" name="telefono" id="telefono" value="{{ old('telefono') }}" required>
             </div>
-            <label for="Correo" class="col-sm-2 col-form-label">Correo:</label>
+
+            <label for="correo" class="col-sm-2 col-form-label">Correo:</label>
             <div class="col-sm-5">
-                <input type="email" class="form-control" name="Correo" id="Correo" value="{{ old('Correo') }}"
-                    required>
+                <input type="email" class="form-control" name="correo" id="correo" value="{{ old('correo') }}" required>
             </div>
         </div>
+
         <div class="md-3 row">
             <label for="id_rol" class="col-sm-2 col-form-label">Roles:</label>
             <div class="col-sm-5">
                 <select name="id_rol" id="id_rol" class="form-control" required>
                     <option value="">Seleccionar rol</option>
                     @foreach ($rol as $roles)
-                        <option value="{{ $roles->id }}">{{ $roles->Rol }}</option>"
+                        <option value="{{ $roles->id }}">{{ $roles->Rol }}</option>
                     @endforeach
                 </select>
             </div>
+
             <a href="{{ url('trabajador') }}" class="btn btn-secondary">Regresar</a>
-            <button type="sumit" class="btn btn-success">Guardar</button>
+            <button type="submit" class="btn btn-success">Guardar</button>
         </div>
     </form>
 </div>

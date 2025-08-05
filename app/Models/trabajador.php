@@ -15,6 +15,6 @@ class trabajador extends Model
 
     public function rol(): BelongsTo
     {
-        return $this->belongsTo(Rol::class, 'id_roles', 'id');
+        return $this->belongsTo(Roles::class, 'id_rol', 'id');
     }
 }

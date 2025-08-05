@@ -10,7 +10,7 @@
                 <label for="nombre" class="col-sm-2 col-form-label">Nombre:</label>
                 <div class="col-sm-5">
                     <input type="text" class="form-control" name="Nombre" id="Nombre"
-                        value="{{ $trabajador->Nombre }}" required>
+                        value="{{ $trabajador->nombre }}" required>
                 </div>
             </div>
 
@@ -19,21 +19,21 @@
                 <label for="apellido" class="col-sm-2 col-form-label">Apellido:</label>
                 <div class="col-sm-5">
                     <input type="text" class="form-control" name="Apellido" id="Apellido"
-                        value="{{ $trabajador->Apellido }}" required>
+                        value="{{ $trabajador->apellido }}" required>
                 </div>
             </div>
             <div class="md-3 row">
-                <label for="telefono" class="col-sm-2 col-form-label">Apellido:</label>
+                <label for="telefono" class="col-sm-2 col-form-label">Telefono:</label>
                 <div class="col-sm-5">
                     <input type="number" class="form-control" name="Telefono" id="Telefono"
-                        value="{{ $trabajador->Telefono }}" required>
+                        value="{{ $trabajador->telefono }}" required>
                 </div>
             </div>
             <div class="md-3 row">
-                <label for="apellido" class="col-sm-2 col-form-label">Apellido:</label>
+                <label for="apellido" class="col-sm-2 col-form-label">Correo:</label>
                 <div class="col-sm-5">
                     <input type="email" class="form-control" name="Correo" id="Correo"
-                        value="{{ $trabajador->Correo }}" required>
+                        value="{{ $trabajador->correo }}" required>
                 </div>
             </div>
 
@@ -43,11 +43,10 @@
                 <div class="col-sm-5">
                     <select name="id_rol" id="id_rol" class="form-control" required>
                         <option value="">Seleccionar rol</option>
-                        @foreach ($rol as $roles)
-                            <option value="{{ $roles->id }}"
-                                @if ($roles->id == $trabajador->id_rol) {{ 'selected' }} @endif>
-                                "{{ $roles->Rol }}"
-                            </option>"
+                        @foreach ($roles as $rol)
+                            <option value="{{ $rol->id }}" @if ($rol->id == $trabajador->id_rol) selected @endif>
+                                {{ $rol->Rol }}
+                            </option>
                         @endforeach
                     </select>
 

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers;
-use App\Models\Rol;
+use App\Models\roles;
 use Illuminate\Http\Request;
 
 
@@ -15,7 +15,7 @@ class RolController extends Controller
     public function index()
     {
         //
-        $rol= Rol::all();
+        $rol= Roles::all();
         return view('roles.index', ['rol'=>$rol]);
     }
 
@@ -38,7 +38,7 @@ class RolController extends Controller
             'Rol'=>'required|max:225',
         ]);
 
-        $rol= new Rol();
+        $rol= new Roles();
         $rol->Rol=$request->input('Rol');
         $rol->save();
 
@@ -59,7 +59,7 @@ class RolController extends Controller
     public function edit(string $id)
     {
         //
-        $rol=Rol::find($id);
+        $rol=Roles::find($id);
         return view('roles.edit', ['rol'=>$rol]);
     }
 
@@ -73,8 +73,8 @@ class RolController extends Controller
             'Rol'=>'required|max:225',
         ]);
 
-        $rol= Rol::find($id);
-        $rol->Rol=$request->input('Rol');
+        $rol= Roles::find($id);
+        $rol->Roles=$request->input('Rol');
         $rol->save();
 
         return view("roles.message", ['mg'=>'Registrado perfectamente su cambio']);
@@ -87,7 +87,7 @@ class RolController extends Controller
     public function destroy(string $id)
     {
         //
-        Rol::destroy($id);
+        Roles::destroy($id);
         return redirect('roles')->with('message', 'Eliminado correctamente');
     }
 }
