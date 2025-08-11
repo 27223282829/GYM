@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('membrecias', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_clientes'); // FK hacia clientes
+            $table->unsignedBigInteger('id_clientes');
             $table->string('tipo');
             $table->date('fecha_ini');
             $table->date('fecha_fin');
@@ -24,7 +24,7 @@ return new class extends Migration
             ->references('id')->on('clientes')
             ->onDelete('cascade');
 
-            $table->timestamps(); // created_at y updated_at
+            $table->timestamps();
         });
     }
 
