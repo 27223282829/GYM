@@ -34,6 +34,7 @@
                 @enderror
 
                 <!-- Nueva contraseña -->
+
                 <div class="password-container">
                     <input type="password" placeholder="Nueva contraseña" name="password" id="password" required oninput="showEye('password', 'eye-password')" />
                     <span id="eye-password" class="toggle-password hide-eye" onclick="togglePassword('password', this)">
@@ -43,11 +44,15 @@
                         </svg>
                     </span>
                 </div>
+
+                <input type="password" placeholder="Nueva contraseña" name="password" required />
+
                 @error('password')
                     <div class="error">{{ $message }}</div>
                 @enderror
 
                 <!-- Confirmar contraseña -->
+
                 <div class="password-container">
                     <input type="password" placeholder="Confirmar nueva contraseña" name="password_confirmation" id="password_confirmation" required oninput="showEye('password_confirmation', 'eye-confirm')" />
                     <span id="eye-confirm" class="toggle-password hide-eye" onclick="togglePassword('password_confirmation', this)">
@@ -57,6 +62,7 @@
                         </svg>
                     </span>
                 </div>
+                <input type="password" placeholder="Confirmar nueva contraseña" name="password_confirmation" required />
                 @error('password_confirmation')
                     <div class="error">{{ $message }}</div>
                 @enderror
@@ -72,6 +78,8 @@
         </div>
     </div>
 </body>
+
 <script src="{{ asset('js/script.js') }}"></script>
+
 
 </html>

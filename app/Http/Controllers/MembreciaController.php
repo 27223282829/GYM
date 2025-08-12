@@ -2,15 +2,20 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Membrecia;
+
+use App\Http\Controllers\Controller;
+
 use Illuminate\Http\Request;
 
 class MembreciaController extends Controller
 {
 
+
     public function index()
     {
-        $membrecias = Membrecia::all();
+        $membrecias =Membrecia::all();
         return view('membrecia.index', compact('membrecias'));
     }
 
@@ -85,4 +90,5 @@ class MembreciaController extends Controller
 
         return redirect()->route('membrecia.index')->with('success', 'Membresía eliminada correctamente');
     }
+
 }

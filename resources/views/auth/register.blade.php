@@ -14,11 +14,13 @@
             <img src="{{ asset('fotosgym/logo2.jpg') }}" alt="Gold's Gym Logo" class="logo" />
             <h2>Registro</h2>
 
+
             @if ($errors->has('email'))
                 <div class="alert-error">
                     {{ $errors->first('email') }}
                 </div>
             @endif
+
             <form method="POST" action="{{ route('register') }}">
                 @csrf
 
@@ -26,6 +28,7 @@
                     required />
                 <input type="email" placeholder="Correo electrónico" name="email" value="{{ old('email') }}"
                     required />
+
 
 
             <div class="password-container">
@@ -58,6 +61,10 @@
 
 
 
+                <input type="password" placeholder="Contraseña" name="password" required />
+                <input type="password" placeholder="Confirmar contraseña" name="password_confirmation" required />
+
+
                 <button type="submit">Registrarme</button>
 
                 <p class="register">
@@ -68,6 +75,8 @@
         </div>
     </div>
 </body>
+
 <script src="{{ asset('js/script.js') }}"></script>
+
 
 </html>

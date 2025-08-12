@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers;
+
 use App\Models\roles;
+
+use App\Models\Rol;
+
 use Illuminate\Http\Request;
 
 
@@ -15,7 +19,11 @@ class RolController extends Controller
     public function index()
     {
         //
+
         $rol= Roles::all();
+
+        $rol= Rol::all();
+
         return view('roles.index', ['rol'=>$rol]);
     }
 
@@ -38,7 +46,10 @@ class RolController extends Controller
             'Rol'=>'required|max:225',
         ]);
 
+
         $rol= new Roles();
+
+        $rol= new Rol();
         $rol->Rol=$request->input('Rol');
         $rol->save();
 
@@ -59,7 +70,11 @@ class RolController extends Controller
     public function edit(string $id)
     {
         //
+
         $rol=Roles::find($id);
+
+        $rol=Rol::find($id);
+
         return view('roles.edit', ['rol'=>$rol]);
     }
 
@@ -69,12 +84,20 @@ class RolController extends Controller
     public function update(Request $request, string $id)
     {
         //
+
         $request->validate([
             'Rol'=>'required|max:225',
         ]);
 
         $rol= Roles::find($id);
         $rol->Roles=$request->input('Rol');
+
+         $request->validate([
+            'Rol'=>'required|max:225',
+        ]);
+
+        $rol= Rol::find($id);
+        $rol->Rol=$request->input('Rol');
         $rol->save();
 
         return view("roles.message", ['mg'=>'Registrado perfectamente su cambio']);
@@ -87,7 +110,12 @@ class RolController extends Controller
     public function destroy(string $id)
     {
         //
+
         Roles::destroy($id);
         return redirect('roles')->with('message', 'Eliminado correctamente');
+
+        Rol::destroy($id);
+        return redirect('rol');
+
     }
 }

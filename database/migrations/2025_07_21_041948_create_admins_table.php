@@ -11,12 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
+<<<<<<< HEAD
         Schema::create('admin', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
             $table->string('apellido');
             $table->string('telefono');
             $table->string('correo');
+=======
+        Schema::create('admins', function (Blueprint $table) {
+            $table->id();
+            $table->string('Nombre');
+            $table->string('Apellido');
+            $table->string('Telefono');
+            $table->string('Correo');
+>>>>>>> b510957 (Integrar el dashboard al proyecto)
             $table->timestamps();
         });
     }
@@ -26,6 +35,10 @@ return new class extends Migration
      */
     public function down(): void
     {
+<<<<<<< HEAD
         Schema::dropIfExists('admin');
+=======
+        Schema::dropIfExists('admins');
+>>>>>>> b510957 (Integrar el dashboard al proyecto)
     }
 };

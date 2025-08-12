@@ -27,4 +27,5 @@ class Membrecia extends Model
     {
         return $this->belongsTo(Cliente::class, 'id_clientes');
     }
+
 }
