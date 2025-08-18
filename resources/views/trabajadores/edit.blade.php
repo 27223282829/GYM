@@ -2,7 +2,7 @@
     <div class="container py-4">
         <h2>Editar Trabajador</h2>
 
-        <form action="{{ url('trabajador/' . $trabajador->id) }}" method="post">
+        <form action="{{ url('trabajadores/' . $trabajador->id) }}" method="post">
             @method('PUT')
             @csrf
 
@@ -45,14 +45,14 @@
                         <option value="">Seleccionar rol</option>
                         @foreach ($roles as $rol)
                             <option value="{{ $rol->id }}" @if ($rol->id == $trabajador->id_rol) selected @endif>
-                                {{ $rol->Rol }}
+                                {{ $rol->rol }}
                             </option>
                         @endforeach
                     </select>
                 </div>
             </div>
 
-            <a href="{{ url('trabajador') }}" class="btn btn-secondary">Regresar</a>
+            <a href="{{ url('trabajadores') }}" class="btn btn-secondary">Regresar</a>
             <button type="submit" class="btn btn-success">Guardar</button>
         </form>
     </div>

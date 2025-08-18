@@ -5,26 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Membrecia extends Model
+class Membresia extends Model
 {
     use HasFactory;
 
+    protected $table = 'membresias';
+
     protected $fillable = [
-        'id_clientes',
+        'id_cliente',
         'tipo',
-        'fecha_ini',
+        'fecha_inicio',
         'fecha_fin',
-        'estado',
+        'estado'
     ];
-
-    protected $casts = [
-        'fecha_ini' => 'date',
-        'fecha_fin' => 'date',
-    ];
-
 
     public function cliente()
     {
-        return $this->belongsTo(Cliente::class, 'id_clientes');
+        return $this->belongsTo(Cliente::class, 'id_cliente');
     }
 }

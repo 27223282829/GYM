@@ -1,7 +1,7 @@
 <div class="container py-4">
     <h2>Registrar Trabajador</h2>
 
-    <form action="{{ url('trabajador') }}" method="post">
+    <form action="{{ url('trabajadores') }}" method="post">
         @csrf
 
         <div class="md-3 row">
@@ -31,13 +31,13 @@
             <div class="col-sm-5">
                 <select name="id_rol" id="id_rol" class="form-control" required>
                     <option value="">Seleccionar rol</option>
-                    @foreach ($rol as $roles)
-                        <option value="{{ $roles->id }}">{{ $roles->Rol }}</option>
+                    @foreach ($roles as $rol)
+                        <option value="{{ $rol->id }}">{{ $rol->rol }}</option>
                     @endforeach
                 </select>
             </div>
 
-            <a href="{{ url('trabajador') }}" class="btn btn-secondary">Regresar</a>
+            <a href="{{ url('trabajadores') }}" class="btn btn-secondary">Regresar</a>
             <button type="submit" class="btn btn-success">Guardar</button>
         </div>
     </form>

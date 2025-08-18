@@ -7,7 +7,7 @@
         <div class="md-3 row">
             <label for="Rol" class="col-sm-2 col-form-label">Nombre del rol:</label>
             <div class="col-sm-5">
-                <input type="text" class="form-control" name="Rol" id="Rol" value="{{ old('Rol') }}" required>
+                <input type="text" class="form-control" name="rol" id="rol" value="{{ old('rol') }}" required>
             </div>
         </div>
 

@@ -2,107 +2,108 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Trabajador;
-use App\Models\Roles;
+use App\Models\Rol;
+use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Validation\ValidationException;
+
 class TrabajadorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
-        $trabajador=Trabajador::all();
-        return view('trabajador.index', ['trabajador'=>$trabajador]);
+        $trabajadores = Trabajador::with('rol')->get();
+        return view('trabajadores.index', compact('trabajadores'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
-        return view('trabajador.create', ['rol'=>Roles::all()]);
+        $roles = Rol::all(); // Para mostrar los roles en un select
+        return view('trabajadores.create', compact('roles'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
         $request->validate([
-            'nombre'=>'required|max:30',
-            'apellido'=>'required|max:30',
-            'telefono'=>'required|max:30',
-            'correo'=>'required|max:30',
-            'id_rol'=> 'required',
+            'nombre'   => 'required|string|max:255',
+            'apellido' => 'required|string|max:255',
+            'telefono' => 'required|string|max:20',
+            'correo'   => 'required|email|unique:trabajadors',
+            'id_rol'   => 'required|exists:roles,id',
         ]);
 
-        $trabajador=new Trabajador();
-        $trabajador->Nombre=$request->input('nombre');
-        $trabajador->Apellido=$request->input('apellido');
-        $trabajador->Telefono=$request->input('telefono');
-        $trabajador->Correo=$request->input('correo');
-        $trabajador->id_rol = $request->input('id_rol');
+        Trabajador::create($request->all());
 
-        $trabajador->save();
-
-        return view("trabajador.message", ['mg'=>"Guardado de forma correcta"]);
+        return redirect()
+            ->route('trabajadores.index')
+            ->with('success', 'Trabajador creado correctamente');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        // si necesitas una vista detalle
+        $trabajador = Trabajador::with('rol')->findOrFail($id);
+        return view('trabajadores.show', compact('trabajador'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
-        $trabajador=Trabajador::find($id);
-        return view('trabajador.edit', ['trabajador'=>$trabajador, 'roles'=>Roles::all()]);
+        $trabajador = Trabajador::findOrFail($id);
+        $roles = Rol::all(); // para mostrar en el select de edición
+        return view('trabajadores.edit', compact('trabajador', 'roles'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
-        $request->validate([
-            'nombre'=>'required|max:30',
-            'apellido'=>'required|max:30',
-            'telefono'=>'required|max:30',
-            'correo'=>'required|max:30',
-            'id_rol'=>'required',
-        ]);
+        try {
+            $trabajador = Trabajador::findOrFail($id);
 
-        $trabajador=Trabajador::find($id);
-        $trabajador->Nombre=$request->input('nombre');
-        $trabajador->Apellido=$request->input('apellido');
-        $trabajador->Telefono=$request->input('telefono');
-        $trabajador->Correo=$request->input('correo');
-        $trabajador->id_rol=$request->input('id_rol');
+            $request->validate([
+                'nombre'   => 'required|string|max:255',
+                'apellido' => 'required|string|max:255',
+                'telefono' => 'required|string|max:20',
+                'correo'   => 'required|email|unique:trabajadors,correo,' . $id,
+                'id_rol'   => 'required|exists:roles,id',
+            ]);
 
-        $trabajador->save();
+            $trabajador->update($request->all());
 
-        return view("trabajador.message", ['mg'=>"Guardado de forma correcta la nueva informacion"]);
+            return redirect()
+                ->route('trabajadores.index')
+                ->with('success', 'Trabajador actualizado correctamente');
+        } catch (ValidationException $e) {
+            return redirect()
+                ->back()
+                ->withErrors($e->errors())
+                ->withInput();
+        } catch (ModelNotFoundException $e) {
+            return redirect()
+                ->route('trabajadores.index')
+                ->with('error', 'Trabajador no encontrado');
+        } catch (\Exception $e) {
+            return redirect()
+                ->route('trabajadores.index')
+                ->with('error', 'Error al actualizar el trabajador');
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
-        Trabajador::destroy($id);
-        return redirect('trabajador');
+        try {
+            $trabajador = Trabajador::findOrFail($id);
+            $trabajador->delete();
+
+            return redirect()
+                ->route('trabajadores.index')
+                ->with('success', 'Trabajador eliminado correctamente');
+        } catch (ModelNotFoundException $e) {
+            return redirect()
+                ->route('trabajadores.index')
+                ->with('error', 'Trabajador no encontrado');
+        } catch (\Exception $e) {
+            return redirect()
+                ->route('trabajadores.index')
+                ->with('error', 'Error al eliminar el trabajador');
+        }
     }
 }

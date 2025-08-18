@@ -5,7 +5,7 @@
 <main>
     <div class="container py-4">
         <h2>Listado de trabajadores </h2>
-        <a href="{{ url('trabajador/create') }}" class="btn btn-primary btn-sm">Nuevo registro</a>
+        <a href="{{ url('trabajadores/create') }}" class="btn btn-primary btn-sm">Nuevo registro</a>
         <table class="table table-light">
             <thead class="thead-light">
                 <tr>
@@ -20,18 +20,18 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($trabajador as $trabajadores)
+                @foreach ($trabajadores as $trabajador)
                     <tr>
-                        <td>{{ $trabajadores->id }}</td>
-                        <td>{{ $trabajadores->nombre }}</td>
-                        <td>{{ $trabajadores->apellido }}</td>
-                        <td>{{ $trabajadores->telefono }}</td>
-                        <td>{{ $trabajadores->correo }}</td>
-                        <td>{{ $trabajadores->rol->Rol }}</td>
-                        <td><a href="{{ url('trabajador/' . $trabajadores->id . '/edit') }}"
+                        <td>{{ $trabajador->id }}</td>
+                        <td>{{ $trabajador->nombre }}</td>
+                        <td>{{ $trabajador->apellido }}</td>
+                        <td>{{ $trabajador->telefono }}</td>
+                        <td>{{ $trabajador->correo }}</td>
+                        <td>{{ $trabajador->rol->rol }}</td>
+                        <td><a href="{{ url('trabajadores/' . $trabajador->id . '/edit') }}"
                                 class="btn btn-warning btn-sn">Editar</a></td>
                         <td>
-                            <form action="{{ url('trabajador/' . $trabajadores->id) }}" method="post">
+                            <form action="{{ url('trabajadores/' . $trabajador->id) }}" method="post">
                                 {{ method_field('DELETE') }}
                                 @csrf
                                 <button type="submit"

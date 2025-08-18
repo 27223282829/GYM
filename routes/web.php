@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MembreciaController;
+use App\Http\Controllers\MembresiaController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TrabajadorController;
@@ -27,13 +27,13 @@ Route::middleware('auth')->group(function () {
 
 });
 
-Route::resource('membrecia', MembreciaController::class);
+Route::resource('membresia', MembresiaController::class);
 Route::resource('roles', RolController::class);
-Route::resource('admin', AdminController::class);
-Route::resource('trabajador', TrabajadorController::class);
+Route::resource('admins', AdminController::class);
+Route::resource('trabajadores', TrabajadorController::class);
 Route::resource('factura', FacturaController::class);
 Route::resource('tipopago', TipoPagoController::class);
-Route::resource('cliente', ClienteController::class);
+Route::resource('clientes', ClienteController::class);
 
 
 

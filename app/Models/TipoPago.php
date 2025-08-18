@@ -5,17 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Admin extends Model
+class TipoPago extends Model
 {
     use HasFactory;
 
-    protected $table = 'admins';
+    protected $table = 'tipo_pagos';
 
-    // Campos que se pueden asignar masivamente
     protected $fillable = [
-        'nombre',
-        'apellido',
-        'telefono',
-        'correo',
+        'tipo_de_pagos'
     ];
 }

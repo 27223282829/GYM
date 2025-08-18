@@ -13,7 +13,7 @@
             <div class="md-3 row">
                 <label for="Rol" class="col-sm-2 col-form-label">Nombre del rol:</label>
                 <div class="col-sm-5">
-                    <input type="text" class="form-control" name="Rol" id="Rol" value="{{ $rol->Rol }}"
+                    <input type="text" class="form-control" name="rol" id="rol" value="{{ $rol->rol }}"
                         required>
                 </div>
             </div>
@@ -21,7 +21,7 @@
 
 
             <a href="{{ url('roles') }}" class="btn btn-secondary">Regresar</a>
-            <button type="sumit" class="btn btn-success">Guardar</button>
+            <button type="submit" class="btn btn-success">Guardar</button>
 
         </form>
 
