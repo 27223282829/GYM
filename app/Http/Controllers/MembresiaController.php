@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Cliente;
 
 use App\Models\Membresia;
 use Illuminate\Http\Request;
@@ -10,7 +11,13 @@ class MembresiaController extends Controller
     public function index()
     {
         $membresias = Membresia::with('cliente')->get();
-        return response()->json($membresias);
+        return view('membresias.index', compact('membresias'));
+    }
+
+    public function create()
+    {
+        $clientes = Cliente::all();
+        return view('membresias.create', compact('clientes'));
     }
 
     public function store(Request $request)
@@ -23,22 +30,22 @@ class MembresiaController extends Controller
             'estado'       => 'required|in:activo,inactivo',
         ]);
 
-        $membresia = Membresia::create($request->all());
+        Membresia::create($request->all());
 
-        return response()->json([
-            'message' => 'Membresía creada exitosamente',
-            'data'    => $membresia
-        ], 201);
+        return redirect()->route('membresias.index')->with('success', 'Membresía creada exitosamente');
     }
 
-    public function show($id)
+    public function edit($id)
     {
-        $membresia = Membresia::with('cliente')->findOrFail($id);
-        return response()->json($membresia);
+        $membresia = Membresia::findOrFail($id);
+        $clientes = Cliente::all();
+        return view('membresias.edit', compact('membresia', 'clientes'));
     }
 
     public function update(Request $request, $id)
     {
+        $membresia = Membresia::findOrFail($id);
+
         $request->validate([
             'id_cliente'   => 'required|exists:clientes,id',
             'tipo'         => 'required|string|max:50',
@@ -47,13 +54,9 @@ class MembresiaController extends Controller
             'estado'       => 'required|in:activo,inactivo',
         ]);
 
-        $membresia = Membresia::findOrFail($id);
         $membresia->update($request->all());
 
-        return response()->json([
-            'message' => 'Membresía actualizada exitosamente',
-            'data'    => $membresia
-        ]);
+        return redirect()->route('membresias.index')->with('success', 'Membresía actualizada exitosamente');
     }
 
     public function destroy($id)
@@ -61,8 +64,6 @@ class MembresiaController extends Controller
         $membresia = Membresia::findOrFail($id);
         $membresia->delete();
 
-        return response()->json([
-            'message' => 'Membresía eliminada correctamente'
-        ]);
+        return redirect()->route('membresias.index')->with('success', 'Membresía eliminada correctamente');
     }
 }

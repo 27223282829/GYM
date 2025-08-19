@@ -11,7 +11,11 @@ class TipoPago extends Model
 
     protected $table = 'tipo_pagos';
 
-    protected $fillable = [
-        'tipo_de_pagos'
-    ];
+    protected $fillable = ['tipo_de_pagos'];
+
+    // Relación inversa
+    public function pagos()
+    {
+        return $this->hasMany(Pago::class, 'id_tipo_pago');
+    }
 }

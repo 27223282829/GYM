@@ -7,45 +7,60 @@ use Illuminate\Http\Request;
 
 class TipoPagoController extends Controller
 {
+
     public function index()
     {
-        return response()->json(TipoPago::all(), 200);
+        $tipos = TipoPago::all();
+        return view('tipopagos.index', compact('tipos'));
     }
 
+    // 👉 Mostrar formulario de creación
+    public function create()
+    {
+        return view('tipopagos.create');
+    }
+
+    // 👉 Guardar nuevo registro
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'tipo_de_pagos' => 'required|string|max:100',
         ]);
 
-        $tipoPago = TipoPago::create($request->all());
+        TipoPago::create($validated);
 
-        return response()->json($tipoPago, 201);
+        return redirect()->route('tipopagos.index')
+            ->with('success', 'Tipo de pago creado correctamente.');
     }
 
-    public function show($id)
+    // 👉 Mostrar formulario de edición
+    public function edit($id)
     {
         $tipoPago = TipoPago::findOrFail($id);
-        return response()->json($tipoPago, 200);
+        return view('tipopagos.edit', compact('tipoPago'));
     }
 
+    // 👉 Actualizar registro
     public function update(Request $request, $id)
     {
-        $request->validate([
+        $validated = $request->validate([
             'tipo_de_pagos' => 'required|string|max:100',
         ]);
 
         $tipoPago = TipoPago::findOrFail($id);
-        $tipoPago->update($request->all());
+        $tipoPago->update($validated);
 
-        return response()->json($tipoPago, 200);
+        return redirect()->route('tipopagos.index')
+            ->with('success', 'Tipo de pago actualizado correctamente.');
     }
 
+    // 👉 Eliminar registro
     public function destroy($id)
     {
         $tipoPago = TipoPago::findOrFail($id);
         $tipoPago->delete();
 
-        return response()->json(['message' => 'Tipo de pago eliminado correctamente'], 200);
+        return redirect()->route('tipopagos.index')
+            ->with('success', 'Tipo de pago eliminado correctamente.');
     }
 }
