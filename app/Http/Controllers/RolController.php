@@ -2,120 +2,102 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers;
-
-use App\Models\roles;
 
 use App\Models\Rol;
-
 use Illuminate\Http\Request;
-
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Validation\ValidationException;
 
 class RolController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
 
-        $rol= Roles::all();
-
-        $rol= Rol::all();
-
-        return view('roles.index', ['rol'=>$rol]);
+        $roles = Rol::all();
+        return view('roles.index', compact('roles'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
         return view('roles.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
-        $request->validate([
-            'Rol'=>'required|max:225',
+        $validated = $request->validate([
+            'rol' => 'required|string|max:100'
         ]);
 
 
-        $rol= new Roles();
+        Rol::create($validated);
 
-        $rol= new Rol();
-        $rol->Rol=$request->input('Rol');
-        $rol->save();
 
-        return view("roles.message", ['mg'=>'Registrado perfectamente']);
+        return redirect()
+            ->route('roles.index')
+            ->with('success', 'Rol creado correctamente');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $rol = Rol::findOrFail($id);
+        return view('roles.show', compact('rol'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
 
-        $rol=Roles::find($id);
+        $rol = Rol::findOrFail($id);
+        return view('roles.edit', compact('rol'));
 
-        $rol=Rol::find($id);
-
-        return view('roles.edit', ['rol'=>$rol]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-
-        $request->validate([
-            'Rol'=>'required|max:225',
-        ]);
-
-        $rol= Roles::find($id);
-        $rol->Roles=$request->input('Rol');
-
-         $request->validate([
-            'Rol'=>'required|max:225',
-        ]);
-
-        $rol= Rol::find($id);
-        $rol->Rol=$request->input('Rol');
-        $rol->save();
-
-        return view("roles.message", ['mg'=>'Registrado perfectamente su cambio']);
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function update(Request $request, $id)
     {
-        //
 
-        Roles::destroy($id);
-        return redirect('roles')->with('message', 'Eliminado correctamente');
+        try {
+            $rol = Rol::findOrFail($id);
 
-        Rol::destroy($id);
-        return redirect('rol');
+            $validated = $request->validate([
+                'rol' => 'required|string|max:100'
+                // 'correo'   => 'required|email|max:150|unique:admins,correo,' . $admin->id,
+            ]);
+
+            $rol->update($validated);
+
+            return redirect()
+                ->route('roles.index')
+                ->with('success', 'Rol actualizado correctamente');
+
+        } catch (ValidationException $e) {
+            return back()
+                ->withErrors($e->errors())
+                ->withInput();
+        } catch (ModelNotFoundException $e) {
+            return redirect()
+                ->route('roles.index')
+                ->with('error', 'Rol no encontrado');
+        }
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $rol = Rol::findOrFail($id);
+            $rol->delete();
+
+            return redirect()
+                ->route('roles.index')
+                ->with('success', 'Rol eliminado correctamente');
+        } catch (ModelNotFoundException $e) {
+            return redirect()
+                ->route('roles.index')
+                ->with('error', 'Rol no encontrado');
+        } catch (\Exception $e) {
+            return redirect()
+                ->route('roles.index')
+                ->with('error', 'Error al eliminar el rol');
+        }
 
     }
 }

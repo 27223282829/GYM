@@ -11,14 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('trabajadores', function (Blueprint $table) {
+        Schema::create('membresias', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->string('apellido');
-            $table->string('telefono');
-            $table->string('correo');
-            $table->unsignedBigInteger('id_rol');
-            $table->foreign('id_rol')->references('id')->on('roles')->onDelete('cascade');
+
+            $table->unsignedBigInteger('id_cliente');
+            $table->string('tipo');
+            $table->date('fecha_ini');
+            $table->date('fecha_fin');
+            $table->string('estado');
+
+            $table->foreign('id_cliente')->references('id')->on('clientes')->onDelete('cascade');
+
             $table->timestamps();
         });
     }
@@ -28,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('trabajadores');
+        Schema::dropIfExists('membresias');
     }
 };

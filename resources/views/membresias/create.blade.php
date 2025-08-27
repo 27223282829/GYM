@@ -10,7 +10,7 @@
             <select name="id_cliente" id="id_cliente" class="form-control" required>
                 <option value="">Seleccionar cliente</option>
                 @foreach ($clientes as $cliente)
-                    <option value="{{ $cliente->id }}" {{ old('id_cliente') == $cliente->id ? 'selected' : '' }}>
+                    <option value="{{ $cliente->id }}">
                         {{ $cliente->nombre }} {{ $cliente->apellido }}
                     </option>
                 @endforeach

@@ -2,107 +2,68 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cliente;
+use App\Models\Trabajador;
 use Illuminate\Http\Request;
-use App\Models\cliente;
-use App\Models\trabajador;
 
 class ClienteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
-        $cliente=Cliente::all();
-        return view('clientes.index', ['cliente'=>$cliente]);
+        $clientes = Cliente::with('trabajador')->get();
+        return view('clientes.index', compact('clientes'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
-        return view('clientes.create', ['trabajador'=>Trabajador::all()]);
+        $trabajadores = Trabajador::all();
+        return view('clientes.create', compact('trabajadores'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
         $request->validate([
-            'Nombre'=>'required|max:30',
-            'Apellido'=>'required|max:30',
-            'Telefono'=>'required|max:30',
-            'Correo'=>'required|max:30',
-            'id_trabajador'=>'required',
+            'nombre'        => 'required|string|max:100',
+            'apellido'      => 'required|string|max:100',
+            'telefono'      => 'nullable|string|max:20',
+            'correo'        => 'required|email|max:150|unique:clientes',
+            'id_trabajador' => 'required|exists:trabajadors,id',
         ]);
 
-        $cliente=new Cliente();
-        $cliente->Nombre=$request->input('Nombre');
-        $cliente->Apellido=$request->input('Apellido');
-        $cliente->Telefono=$request->input('Telefono');
-        $cliente->Correo=$request->input('Correo');
-        $cliente->id_trabajador=$request->input('id_trabajador');
+        Cliente::create($request->all());
 
-        $cliente->save();
-
-        return view("clientes.message", ['msg'=>"Agregado de forma completa"]);
+        return redirect()->route('clientes.index')->with('success', 'Cliente creado correctamente');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit($id)
     {
-        //
+        $cliente = Cliente::findOrFail($id);
+        $trabajadores = Trabajador::all();
+        return view('clientes.edit', compact('cliente', 'trabajadores'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(Request $request, $id)
     {
-        //
-        $cliente=Cliente::find($id);
-        return view('clientes.edit', ['cliente'=>$cliente, 'trabajador'=>Trabajador::all()]);
-    }
+        $cliente = Cliente::findOrFail($id);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
         $request->validate([
-            'Nombre'=>'required|max:30',
-            'Apellido'=>'required|max:30',
-            'Telefono'=>'required|max:30',
-            'Correo'=>'required|max:30',
-            'id_trabajador'=>'required',
+            'nombre'        => 'required|string|max:100',
+            'apellido'      => 'required|string|max:100',
+            'telefono'      => 'nullable|string|max:20',
+            'correo'        => 'required|email|max:150|unique:clientes,correo,' . $cliente->id,
+            'id_trabajador' => 'required|exists:trabajadors,id',
         ]);
 
-        $cliente= Cliente::find($id);
-        $cliente->Nombre=$request->input('Nombre');
-        $cliente->Apellido=$request->input('Apellido');
-        $cliente->Telefono=$request->input('Telefono');
-        $cliente->Correo=$request->input('Correo');
-        $cliente->id_trabajador=$request->input('id_trabajador');
-        $cliente->save();
+        $cliente->update($request->all());
 
-        return view("clientes.message", ['msg'=>"Agregado de forma completa la edicion"]);
+        return redirect()->route('clientes.index')->with('success', 'Cliente actualizado correctamente');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
-        Cliente::destroy($id);
-        return redirect('cliente');
+        $cliente = Cliente::findOrFail($id);
+        $cliente->delete();
+
+        return redirect()->route('clientes.index')->with('success', 'Cliente eliminado correctamente');
     }
 }

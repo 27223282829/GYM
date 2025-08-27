@@ -4,21 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class trabajador extends Model
+class Trabajador extends Model
 {
 
-
-    protected $table = 'trabajadores';
+    // protected $table = 'trabajadores';
 
     use HasFactory;
+    protected $table = 'trabajadors'; // 👈 Laravel usaría 'trabajadors' igual, pero mejor especificarlo
+    protected $fillable = ['nombre', 'apellido', 'telefono', 'correo', 'id_rol'];
 
-    public function rol(): BelongsTo
-    {     
-        return $this->belongsTo(Roles::class, 'id_rol', 'id');
 
-    // use HasFactory;
+    public function rol()
+    {
+        return $this->belongsTo(Rol::class, 'id_rol');
 
     }
 }
