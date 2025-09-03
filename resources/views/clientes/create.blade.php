@@ -1,51 +1,48 @@
 <div class="container py-4">
-    <h2>Registrar Membresía</h2>
+    <h2>Registrar Cliente</h2>
 
-    <form action="{{ route('membresias.store') }}" method="POST">
+    <form action="{{ route('clientes.store') }}" method="POST">
         @csrf
 
-        {{-- Cliente --}}
+        {{-- Nombre --}}
         <div class="mb-3">
-            <label for="id_cliente" class="form-label">Cliente</label>
-            <select name="id_cliente" id="id_cliente" class="form-control" required>
-                <option value="">Seleccionar cliente</option>
-                @foreach ($clientes as $cliente)
-                    <option value="{{ $cliente->id }}" {{ old('id_cliente') == $cliente->id ? 'selected' : '' }}>
-                        {{ $cliente->nombre }} {{ $cliente->apellido }}
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" name="nombre" id="nombre" value="{{ old('nombre') }}" required>
+        </div>
+
+        {{-- Apellido --}}
+        <div class="mb-3">
+            <label for="apellido" class="form-label">Apellido</label>
+            <input type="text" class="form-control" name="apellido" id="apellido" value="{{ old('apellido') }}" required>
+        </div>
+
+        {{-- Teléfono --}}
+        <div class="mb-3">
+            <label for="telefono" class="form-label">Teléfono</label>
+            <input type="text" class="form-control" name="telefono" id="telefono" value="{{ old('telefono') }}">
+        </div>
+
+        {{-- Correo --}}
+        <div class="mb-3">
+            <label for="correo" class="form-label">Correo</label>
+            <input type="email" class="form-control" name="correo" id="correo" value="{{ old('correo') }}" required>
+        </div>
+
+        {{-- Trabajador asignado --}}
+        <div class="mb-3">
+            <label for="id_trabajador" class="form-label">Trabajador</label>
+            <select name="id_trabajador" id="id_trabajador" class="form-control" required>
+                <option value="">Seleccionar trabajador</option>
+                @foreach ($trabajadores as $trabajador)
+                    <option value="{{ $trabajador->id }}" {{ old('id_trabajador') == $trabajador->id ? 'selected' : '' }}>
+                        {{ $trabajador->nombre }}
                     </option>
                 @endforeach
             </select>
         </div>
 
-        {{-- Tipo --}}
-        <div class="mb-3">
-            <label for="tipo" class="form-label">Tipo</label>
-            <input type="text" class="form-control" name="tipo" id="tipo" value="{{ old('tipo') }}" required>
-        </div>
-
-        {{-- Fecha inicio --}}
-        <div class="mb-3">
-            <label for="fecha_ini" class="form-label">Fecha Inicio</label>
-            <input type="date" class="form-control" name="fecha_ini" id="fecha_ini" value="{{ old('fecha_ini') }}" required>
-        </div>
-
-        {{-- Fecha fin --}}
-        <div class="mb-3">
-            <label for="fecha_fin" class="form-label">Fecha Fin</label>
-            <input type="date" class="form-control" name="fecha_fin" id="fecha_fin" value="{{ old('fecha_fin') }}">
-        </div>
-
-        {{-- Estado --}}
-        <div class="mb-3">
-            <label for="estado" class="form-label">Estado</label>
-            <select name="estado" id="estado" class="form-control" required>
-                <option value="activo" {{ old('estado') == 'activo' ? 'selected' : '' }}>Activo</option>
-                <option value="inactivo" {{ old('estado') == 'inactivo' ? 'selected' : '' }}>Inactivo</option>
-            </select>
-        </div>
-
         {{-- Botones --}}
-        <a href="{{ route('membresias.index') }}" class="btn btn-secondary">Regresar</a>
+        <a href="{{ route('clientes.index') }}" class="btn btn-secondary">Regresar</a>
         <button type="submit" class="btn btn-success">Guardar</button>
     </form>
 </div>
